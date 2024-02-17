@@ -6,7 +6,7 @@
 /*   By: mstrba <mstrba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 13:42:50 by mstrba            #+#    #+#             */
-/*   Updated: 2024/02/16 16:45:15 by mstrba           ###   ########.fr       */
+/*   Updated: 2024/02/17 11:04:09 by mstrba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 void	signal_handle_client(int sig);
 void	init_signals(void);
 
-int	main(int argc, char	**argv)
+int	main(void)
 {
 	__pid_t	pid;
 
@@ -33,7 +33,19 @@ int	main(int argc, char	**argv)
 
 void	signal_handle_client(int sig)
 {
+	static int				bit_position = 7;
+	static unsigned char	current_char = 0;
 
+	if (sig == SIGUSR1)
+		current_char |= (1 << bit_position);
+	bit_position--;
+	if (bit_position < 0)
+	{
+		write(STDOUT_FILENO, &current_char, 1);
+		write(STDOUT_FILENO, "\n", 1);
+		bit_position = 7;
+		current_char = 0;
+	}
 }
 
 void	init_signals(void)
@@ -43,7 +55,6 @@ void	init_signals(void)
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = 0;
 	sa.sa_handler = signal_handle_client;
-
 	if (sigaction(SIGUSR1, &sa, NULL) == -1)
 	{
 		error_handler("Error setting SIGUSR1 handler.\n");
