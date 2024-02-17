@@ -6,15 +6,11 @@
 /*   By: mstrba <mstrba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 13:42:50 by mstrba            #+#    #+#             */
-/*   Updated: 2024/02/17 11:04:09 by mstrba           ###   ########.fr       */
+/*   Updated: 2024/02/17 11:53:09 by mstrba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <signal.h>
-#include "../lib/minitalk/extra.h"
+#include "../lib/minitalk/minitalk.h"
 
 void	signal_handle_client(int sig);
 void	init_signals(void);

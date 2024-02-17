@@ -6,16 +6,13 @@
 /*   By: mstrba <mstrba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 13:40:57 by mstrba            #+#    #+#             */
-/*   Updated: 2024/02/17 11:03:21 by mstrba           ###   ########.fr       */
+/*   Updated: 2024/02/17 11:52:50 by mstrba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <signal.h>
+#include "../lib/minitalk/minitalk.h"
 #include "../lib/libft/libft.h"
-#include "../lib/minitalk/extra.h"
+
 
 void	args_checker(int argc, char **argv);
 void	send_message(__pid_t pid, char	*message);

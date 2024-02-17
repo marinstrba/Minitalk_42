@@ -1,0 +1,37 @@
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror
+
+LIBFT_DIR = lib/libft
+MINITALK_DIR = lib/minitalk
+
+LIBFT = $(LIBFT_DIR)/libft.a
+MINITALK = $(MINITALK_DIR)/minitalk.a
+
+INCLUDES = -I$(LIBFT_DIR) -I$(MINITALK_DIR)
+
+all: libft minitalk server client
+
+libft:
+	$(MAKE) -C $(LIBFT_DIR)
+
+minitalk:
+	$(MAKE) -C $(MINITALK_DIR)
+
+server: libft minitalk
+	$(CC) $(CFLAGS) $(INCLUDES) src/server.c $(LIBFT) $(MINITALK) -o server
+
+client: libft minitalk
+	$(CC) $(CFLAGS) $(INCLUDES) src/client.c $(LIBFT) $(MINITALK) -o client
+
+clean:
+	$(MAKE) -C $(LIBFT_DIR) clean
+	$(MAKE) -C $(MINITALK_DIR) clean
+
+fclean: clean
+	$(MAKE) -C $(LIBFT_DIR) fclean
+	$(MAKE) -C $(MINITALK_DIR) fclean
+	rm -f server client
+
+re: fclean all
+
+.PHONY: all libft minitalk server client clean fclean re
